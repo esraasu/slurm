@@ -1,0 +1,49 @@
+---
+- name: Install head services
+  apt:
+    name:
+      - slurmctld
+      - slurmd
+    state: present
+
+- name: Configure chrony as time server
+  blockinfile:
+    path: /etc/chrony/chrony.conf
+    block: |
+      allow {{ cluster_net }}
+      local stratum 10
+  notify: Restart chrony
+
+- name: Generate munge key (once)
+  command: mungekey --create
+  args:
+    creates: /etc/munge/munge.key
+
+- name: Set munge key permissions
+  file:
+    path: /etc/munge/munge.key
+    owner: munge
+    group: munge
+    mode: "0400"
+
+- name: Start munge on head
+  service:
+    name: munge
+    state: restarted
+    enabled: yes
+
+- name: Read munge key from head
+  slurp:
+    src: /etc/munge/munge.key
+  register: munge_key_slurp
+
+- name: Write slurm.conf on head
+  copy:
+    dest: /etc/slurm/slurm.conf
+    content: "{{ slurm_conf }}"
+
+- name: Start slurmctld
+  service:
+    name: slurmctld
+    state: restarted
+    enabled: yes

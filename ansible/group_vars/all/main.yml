@@ -1,0 +1,31 @@
+cluster_net: "192.168.56.0/24"
+
+slurm_conf: |
+  ClusterName=slurm-lab
+  ControlMachine=head
+  SlurmUser=slurm
+  SlurmdUser=root
+
+  StateSaveLocation=/var/lib/slurm/slurmctld
+  SlurmdSpoolDir=/var/lib/slurm/slurmd
+
+  SwitchType=switch/none
+  MpiDefault=none
+  SlurmctldPort=6817
+  SlurmdPort=6818
+
+  # Ubuntu 22 lab-safe
+  ProctrackType=proctrack/linuxproc
+
+  ReturnToService=2
+  SchedulerType=sched/backfill
+  SelectType=select/cons_tres
+  SelectTypeParameters=CR_Core
+
+  SlurmctldLogFile=/var/log/slurmctld.log
+  SlurmdLogFile=/var/log/slurmd.log
+
+  NodeName=c1 CPUs=2 Sockets=2 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=1900 State=UNKNOWN
+  NodeName=c2 CPUs=2 Sockets=2 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=1900 State=UNKNOWN
+
+  PartitionName=debug Nodes=c1,c2 Default=YES MaxTime=INFINITE State=UP

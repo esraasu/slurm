@@ -1,0 +1,7 @@
+---
+- name: Slurm cluster setup
+  hosts: all
+  become: true
+  roles:
+    - slurm_cluster
+

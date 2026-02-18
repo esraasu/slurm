@@ -1,0 +1,10 @@
+#SPDX-License-Identifier: MIT-0
+# tasks file for slurm_cluster
+---
+- import_tasks: common.yml
+
+- import_tasks: head.yml
+  when: "'head' in group_names"
+
+- import_tasks: compute.yml
+  when: "'compute' in group_names"

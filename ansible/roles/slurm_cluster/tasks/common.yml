@@ -1,0 +1,36 @@
+---
+- name: Install base packages
+  apt:
+    update_cache: yes
+    name:
+      - chrony
+      - munge
+      - slurm-client
+    state: present
+
+- name: Configure /etc/hosts
+  copy:
+    dest: /etc/hosts
+    content: |
+      127.0.0.1 localhost
+      192.168.56.10 head
+      192.168.56.11 c1
+      192.168.56.12 c2
+
+- name: Create required directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - /etc/slurm
+    - /etc/munge
+    - /var/lib/slurm/slurmd
+    - /var/lib/slurm/slurmctld
+
+- name: Fix slurm directory ownership
+  file:
+    path: /var/lib/slurm
+    owner: slurm
+    group: slurm
+    recurse: yes
