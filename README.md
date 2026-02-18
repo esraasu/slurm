@@ -1,11 +1,11 @@
-# 🖥️ Slurm Cluster Lab  
+#  Slurm Cluster Lab  
 Vagrant + Libvirt + Ansible (Ubuntu 22.04)
 
 This project provisions a 3-node Slurm cluster locally using Infrastructure as Code.
 
 ---
 
-# 📦 Installation Guide
+#  Installation Guide
 
 ## 1️⃣ Install Requirements (Fedora Host)
 
@@ -82,7 +82,7 @@ This will:
 
 ---
 
-## 🧠 Cluster Topology
+##  Cluster Topology
 
 | Node | Role        | IP              |
 |------|------------|----------------|
@@ -121,7 +121,7 @@ srun hostname
 
 ---
 
-## 🧹 Destroy Environment
+##  Destroy Environment
 
 ```bash
 vagrant destroy -f
@@ -129,7 +129,7 @@ vagrant destroy -f
 
 ---
 
-# 🏗️ Project Structure
+#  Project Structure
 
 ```
 .
@@ -146,7 +146,7 @@ vagrant destroy -f
 
 ---
 
-# ⚙️ Technologies Used
+#  Technologies Used
 
 - Vagrant
 - Libvirt (KVM)
